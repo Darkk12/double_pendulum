@@ -150,3 +150,7 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 ani = animation.FuncAnimation(fig, animate, range(1, len(y)),
                               interval=(1/(len(t)/duration))*1000, blit=True, init_func=init)
 plt.show()
+
+# saving animation
+# takes a whila and ffmpeg needs to be installed
+#ani.save("double_pendulum_4.mp4")
