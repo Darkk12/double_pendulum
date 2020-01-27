@@ -21,6 +21,35 @@ L2 = 1.0  # length of pendulum 2 in m
 M1 = 1.0  # mass of pendulum 1 in kg
 M2 = 1.0  # mass of pendulum 2 in kg
 
+# th1 and th2 are the initial angles (degrees)
+# w10 and w20 are the initial angular velocities (degrees per second)
+
+# th1(second pendulum), th2 (first pendulum), th1(second pendulum), th2 (second pendulum)
+init_tuple = (120.0, 105.0, 120.0000001, 105.0)
+#init_tuple = (180.0000001, 180.0, -180.0000001, 180.0)
+#init_tuple = (180.0, 90.0000001, 180.0, 90.0)
+#init_tuple = (80.0000001, 42.0, 80.0, 42.0)
+#init_tuple = (120.0, -90.0, -120.0, 90.0)
+
+th1 = init_tuple[0]
+w1 = 0.0
+th2 = init_tuple[1]
+w2 = 0.0
+
+th1_ = init_tuple[2]
+w1_ = 0.0
+th2_ = init_tuple[3]
+w2_ = 0.0
+
+# create a time array sampled at dt second steps
+# duration given in seconds
+duration = 100
+dt = 0.02
+t = np.arange(0, duration, dt)
+
+#defines the number of samples fo which the drawn path should persist (None means forever)
+PATH_RANGE = None
+
 
 def derivs(state, t):
 
@@ -46,25 +75,6 @@ def derivs(state, t):
 
     return dydx
 
-# create a time array sampled at dt second steps
-duration = 200
-dt = 0.02
-t = np.arange(0, duration, dt)
-
-# th1 and th2 are the initial angles (degrees)
-# w10 and w20 are the initial angular velocities (degrees per second)
-th1 = 80.0000001
-w1 = 0.0
-th2 = 42.0000000
-w2 = 0.0
-
-th1_ = 80.0000000
-w1_ = 0.0
-th2_ = 42.0
-w2_ = 0.0
-
-PATH_RANGE = None
-
 # initial state
 state = np.radians([th1, w1, th2, w2])
 state_ = np.radians([th1_, w1_, th2_, w2_])
@@ -83,7 +93,7 @@ y2 = -L2*cos(y[:, 2]) + y1
 x2_ = L2*sin(y_[:, 2]) + x1_
 y2_ = -L2*cos(y_[:, 2]) + y1_
 
-fig = plt.figure(figsize=(11,11))
+fig = plt.figure()
 ax = fig.add_subplot(111, autoscale_on=False, xlim=(-2, 2), ylim=(-2, 2))
 ax.set_aspect('equal')
 ax.grid()
@@ -102,7 +112,7 @@ init_template = ("Init Conditions:\n"
                  "$\Theta_{12}:=%.7f\degree$ (orange)\n"
                  "$\Theta_{22}:=%.7f\degree$ (orange)"
                  %(th1,th2,th1_,th2_))
-init_text = ax.text(0.05, 0.78, init_template, bbox=dict(boxstyle="round", fc="white"),size='smaller',transform=ax.transAxes)
+init_text = ax.text(0.05, 0.68, init_template, bbox=dict(boxstyle="round", fc="white"),size='smaller',transform=ax.transAxes)
 
 pause = False
 def onClick(event):
