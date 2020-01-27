@@ -112,7 +112,7 @@ init_template = ("Init Conditions:\n"
                  "$\Theta_{12}:=%.7f\degree$ (orange)\n"
                  "$\Theta_{22}:=%.7f\degree$ (orange)"
                  %(th1,th2,th1_,th2_))
-init_text = ax.text(0.05, 0.68, init_template, bbox=dict(boxstyle="round", fc="white"),size='smaller',transform=ax.transAxes)
+init_text = ax.text(0.05, 0.68, init_template, bbox=dict(boxstyle="round", alpha=0.6, fc="white"),size='smaller',transform=ax.transAxes)
 
 pause = False
 def onClick(event):
